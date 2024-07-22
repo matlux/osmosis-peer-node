@@ -23,14 +23,14 @@ wget "$SNAPSHOT_URL"
 Build image
 
 ```
-docker build -t osmosis-node -f Dockerfile-o .smosis-node
+docker build -t osmosis-node -f Dockerfile-o osmosis-node
 ```
 
 
 Run image with directory onto previously downloaded snapshot
 ```
 
-docker run -v ~/mathieu/snapshots:/root/snapshots -p 26656:26656 -p 26657:26657 -it osmosis-node
+docker run -v ~/mathieu/snapshots:/root/snapshots -p 26656:26656 -p 26657:26657 -d osmosis-node
 
 
 ```
@@ -39,5 +39,23 @@ Optionally you can use a volume to keep the data outside of the docker image
 
 
 ```
-docker run -v ~/mathieu/snapshots:/root/snapshots -v ~/mathieu/states/osmosis1:/root/.osmosisd -p 26656:26656 -p 26657:26657 -it simple-ubuntu
+mkdir -p ~/states/osmosis2
+docker run -v ~/snapshots:/root/snapshots -v ~/states/osmosis2:/root/.osmosisd -p 26656:26656 -p 26657:26657 -d osmosis-node
+```
+
+
+
+Check logs of the container
+
+```
+docker ps
+docker logs 152e2d566c1e -f
+```
+
+
+kill the container
+
+```
+docker ps
+docker kill 152e2d566c1e
 ```

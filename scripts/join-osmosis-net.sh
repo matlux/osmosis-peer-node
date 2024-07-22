@@ -14,6 +14,12 @@ if [ -z $MONIKER ]; then
     MONIKER=my-node
 fi
 
+SNAPSHOT_FILE=$3
+if [ -z $SNAPSHOT_FILE ]; then
+    echo -e "${RED}Snapshot file not provided. Exiting...${CLEAN}"
+    exit 1
+fi
+
 OSMOSIS_HOME=$HOME/.osmosisd
 OSMOSIS_VERSION=25.2.0
 GOLANG_VERSION=1.22.3
@@ -44,7 +50,7 @@ dasel put string -f $OSMOSIS_HOME/config/config.toml '.rpc.laddr' "tcp://0.0.0.0
 wget -q $GENESIS_URL -O $OSMOSIS_HOME/config/genesis.json
 wget -q $ADDRBOOK_URL -O $OSMOSIS_HOME/config/addrbook.json
 
-lz4 -d /root/snapshots/osmosis-snapshot-202407201816-10436772.tar.lz4 | tar -C $OSMOSIS_HOME/ -xvf -
+lz4 -d $SNAPSHOT_FILE | tar -C $OSMOSIS_HOME/ -xvf -
 
 
 # Create an empty upgrade-info.json if it doesn't exist
