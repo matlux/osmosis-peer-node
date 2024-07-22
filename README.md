@@ -23,7 +23,7 @@ wget "$SNAPSHOT_URL"
 Build image
 
 ```
-docker build -t osmosis-node -f Dockerfile-o osmosis-node
+docker build -t osmosis-node -f Dockerfile-osmosis-node .
 ```
 
 
