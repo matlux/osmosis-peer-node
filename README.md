@@ -43,7 +43,18 @@ mkdir -p ~/states/osmosis3
 CONT_ID=$(docker run -v ~/snapshots:/root/snapshots -v ~/states/osmosis3:/root/.osmosisd -e SNAPSHOT_NAME=$SNAPSHOT_NAME -p 26656:26656 -p 26657:26657 -d osmosis-node)
 ```
 
+Restart node
 
+
+```
+CONT_ID=$(docker run -v ~/snapshots:/root/snapshots -v ~/states/osmosis3:/root/.osmosisd -e SNAPSHOT_NAME=$SNAPSHOT_NAME -p 26656:26656 -p 26657:26657 -d osmosis-node /bin/sh -c "/root/join-osmosis-net.sh INSTALLATION my-node;osmosisd start --home /root/.osmosisd")
+```
+
+debug restart with
+
+```
+docker run -v ~/snapshots:/root/snapshots -v ~/states/osmosis3:/root/.osmosisd -p 26656:26656 -p 26657:26657 -it osmosis-node /bin/sh -c "/root/join-osmosis-net.sh INSTALLATION my-node;osmosisd start --home /root/.osmosisd"
+```
 
 Check logs of the container
 
