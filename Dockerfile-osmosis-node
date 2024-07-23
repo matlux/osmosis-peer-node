@@ -53,9 +53,6 @@ RUN cp /usr/local/bin/osmosisd $OSMOSIS_HOME/cosmovisor/genesis/bin/osmosisd \
 COPY scripts/join-osmosis-net.sh /root/join-osmosis-net.sh
 RUN chmod +x /root/join-osmosis-net.sh
 
-# Set build argument for the snapshot file
-ARG SNAPSHOT_FILE
-ENV SNAPSHOT_FILE=${SNAPSHOT_FILE}
 # Run the script with the necessary environment variables
 # RUN /root/join-snapshot-simplified.sh $INSTALLATION $MONIKER
 
@@ -71,6 +68,5 @@ ENV UNSAFE_SKIP_BACKUP=true
 EXPOSE 26656 26657
 
 # Set the entry point for cosmovisor
-CMD ["/bin/sh", "-c", "/root/join-osmosis-net.sh $INSTALLATION $MONIKER && osmosisd start --home /root/.osmosisd"]
-
+CMD ["/bin/sh", "-c", "/root/join-osmosis-net.sh $INSTALLATION $MONIKER /root/snapshots/$SNAPSHOT_NAME && osmosisd start --home /root/.osmosisd"]
 
