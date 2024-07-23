@@ -71,6 +71,6 @@ ENV UNSAFE_SKIP_BACKUP=true
 EXPOSE 26656 26657
 
 # Set the entry point for cosmovisor
-CMD ["/bin/sh", "-c", "/root/join-osmosis-net.sh $INSTALLATION $MONIKER && osmosisd start --home /root/.osmosisd"]
+CMD ["/bin/sh", "-c", "/root/join-osmosis-net.sh $INSTALLATION $MONIKER && untar-snapshot.sh $SNAPSHOT_FILE && osmosisd start --home /root/.osmosisd"]
 
 

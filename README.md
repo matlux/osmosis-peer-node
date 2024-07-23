@@ -23,7 +23,7 @@ wget "$SNAPSHOT_URL"
 Build image
 
 ```
-docker build -t osmosis-node -f Dockerfile-o osmosis-node
+docker build -t osmosis-node -f Dockerfile-osmosis-node .
 ```
 
 
@@ -39,8 +39,8 @@ Optionally you can use a volume to keep the data outside of the docker image
 
 
 ```
-mkdir -p ~/states/osmosis2
-docker run -v ~/snapshots:/root/snapshots -v ~/states/osmosis2:/root/.osmosisd -p 26656:26656 -p 26657:26657 -d osmosis-node
+mkdir -p ~/states/osmosis3
+CONT_ID=$(docker run -v ~/snapshots:/root/snapshots -v ~/states/osmosis3:/root/.osmosisd -e SNAPSHOT_NAME=$SNAPSHOT_NAME -p 26656:26656 -p 26657:26657 -d osmosis-node)
 ```
 
 
@@ -49,7 +49,7 @@ Check logs of the container
 
 ```
 docker ps
-docker logs 152e2d566c1e -f
+docker logs ${CONT_ID} -f
 ```
 
 
